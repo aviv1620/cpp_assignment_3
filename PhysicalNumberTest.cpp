@@ -9,6 +9,7 @@
 #include <sstream>
 using std::cout, std::endl, std::istringstream;
 #include "PhysicalNumber.h"
+#include "Unit.h"
 using ariel::PhysicalNumber, ariel::Unit;
 #include "badkan.hpp"
 
