@@ -19,18 +19,21 @@ public:
 		return s;
 	}
 };
-ariel::PhysicalNumber::PhysicalNumber(long double value, ariel::Unit unit) {
+
+using ariel::PhysicalNumber;
+
+PhysicalNumber::PhysicalNumber(long double value, ariel::Unit unit) {
 	this->value = value;
 	this->unit = unit;
 }
 //ADD and SUB
 
-const ariel::PhysicalNumber ariel::operator+(const ariel::PhysicalNumber & physical)
+const PhysicalNumber ariel::operator+(const ariel::PhysicalNumber & physical)
 {
 	return PhysicalNumber(+physical.value,physical.unit);
 }
 
-const ariel::PhysicalNumber & ariel::operator+=(ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
+const PhysicalNumber & ariel::operator+=(ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
 {
 	if ((a.unit / 3 == b.unit / 3)) {
 		long double num = (a.value * ariel::Enumber[a.unit] + b.value * ariel::Enumber[b.unit]) / ariel::Enumber[a.unit];
@@ -40,7 +43,7 @@ const ariel::PhysicalNumber & ariel::operator+=(ariel::PhysicalNumber & a, const
 	else throw FormatException(a.unit, b.unit);
 }
 
-const ariel::PhysicalNumber ariel::operator+(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
+const PhysicalNumber ariel::operator+(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
 {
 	if ((a.unit / 3 == b.unit / 3)) {
 		long double num = (a.value * Enumber[a.unit] + b.value * Enumber[b.unit]) / Enumber[a.unit];
@@ -48,11 +51,11 @@ const ariel::PhysicalNumber ariel::operator+(const ariel::PhysicalNumber & a, co
 	}
 	else throw FormatException(a.unit, b.unit);
 }
-const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & physical)
+const PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & physical)
 {
 	return PhysicalNumber(-physical.value,physical.unit);
 }
-const ariel::PhysicalNumber & ariel::operator-=(ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
+const PhysicalNumber & ariel::operator-=(ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
 {
 	if ((a.unit / 3 == b.unit / 3)) {
 		long double num = (a.value * ariel::Enumber[a.unit] - b.value * ariel::Enumber[b.unit])/ariel::Enumber[a.unit];
@@ -61,22 +64,22 @@ const ariel::PhysicalNumber & ariel::operator-=(ariel::PhysicalNumber & a, const
 	}
 	else throw FormatException(a.unit, b.unit);
 }
-const ariel::PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical)
+const PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical)
 {
 	--physical.value;
 	return physical;
 }
-const ariel::PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical, int flag)
+const PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical, int flag)
 {
 	physical.value--;
 	return physical;
 }
-const ariel::PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical)
+const PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical)
 {
 	++physical.value;
 	return physical;
 }
-const ariel::PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical, int flag)
+const PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical, int flag)
 {
 	physical.value++;
 	return physical;
@@ -97,7 +100,7 @@ bool ariel::operator==(const ariel::PhysicalNumber & a, const ariel::PhysicalNum
 	}
 	else throw FormatException(a.unit,b.unit);
 }
-bool ariel::operator!=(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {
+bool ariel::operator!=(const PhysicalNumber& a, const PhysicalNumber& b) {
 	if ((a.unit / 3 == b.unit / 3)) {
 		return !(a==b);
 	}

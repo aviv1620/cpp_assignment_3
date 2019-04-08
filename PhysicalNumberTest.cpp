@@ -38,7 +38,27 @@ int main() {
 		PhysicalNumber cm101 (101,Unit::CM);
 		PhysicalNumber m1001 (1001,Unit::M);
 		
-	
+		//SEC, MIN, HOUR test
+		PhysicalNumber sec1 (1,Unit::SEC);
+		PhysicalNumber min1 (1,Unit::MIN);
+		PhysicalNumber hour1 (1,Unit::HOUR);
+		
+		PhysicalNumber sec60 (60,Unit::SEC);
+		PhysicalNumber min60 (60,Unit::MIN);
+		
+		PhysicalNumber sec61 (61,Unit::SEC);
+		PhysicalNumber min61 (61,Unit::MIN);
+		
+		//G, KG, TON
+		PhysicalNumber g1 (1,Unit::G);
+		PhysicalNumber kg1 (1,Unit::KG);
+		PhysicalNumber ton1 (1,Unit::TON);
+		
+		PhysicalNumber g1000 (1000,Unit::G);
+		PhysicalNumber kg1000 (1000,Unit::KG);
+		
+		PhysicalNumber g1001 (1001,Unit::G);
+		PhysicalNumber kg1001 (1001,Unit::KG);
 		
 
 		testcase
@@ -68,8 +88,6 @@ int main() {
 
 			// YOUR TESTS - INSERT AS MANY AS YOU WANT
 			
-			
-	
 			//cm,m,km test - operators >> and <<
 			.setname("cm,m,km test - operators >> and <<")
 			
@@ -122,6 +140,7 @@ int main() {
 			
 			.CHECK_OUTPUT(m1 - cm1,"0.99[m]")
 			.CHECK_OUTPUT(km1 - m1,"0.999[km]")
+			.CHECK_OUTPUT(m1 - km1,"-999[m]")//negetive number.
 			
 			.CHECK_OUTPUT(cm101 - m1,"1[cm]")
 			.CHECK_OUTPUT(m1001 - km1,"1[m]")
@@ -155,7 +174,174 @@ int main() {
 			.CHECK_OUTPUT((km1--),"3[km]")
 			.CHECK_OUTPUT((--km1),"2[km]")
 			
+			//SEC, MIN, HOUR test - operators >> and <<
+			.setname("SEC, MIN, HOUR test - operators >> and <<")
 			
+			.CHECK_OUTPUT(  sec1 << " " << min1 << " " << hour1  ,"1[sec] 1[min] 1[hour]" )
+			
+			.CHECK_OK(istringstream("1[sec]") >> t)
+			.CHECK_OUTPUT(t,"1[sec]")
+			.CHECK_OK(istringstream("1[min]") >> t)
+			.CHECK_OUTPUT(t,"1[min]")
+			.CHECK_OK(istringstream("1[hour]") >> t)
+			.CHECK_OUTPUT(t,"1[hour]")
+			
+			
+			//SEC, MIN, HOUR test - operator compare
+			.setname("SEC, MIN, HOUR test-operator compare")
+			.CHECK_EQUAL((min1 == sec60), true)
+			.CHECK_EQUAL((hour1 == min60), true)
+			.CHECK_EQUAL((min1 != sec61), true)
+			.CHECK_EQUAL((hour1 != min61), true)
+			
+			.CHECK_EQUAL((hour1 > min1), true)
+			.CHECK_EQUAL((min1 > sec1), true)
+			.CHECK_EQUAL((hour1 > sec1), true)
+			.CHECK_EQUAL((min1 < hour1), true)
+			.CHECK_EQUAL((sec1 < min1), true)
+			.CHECK_EQUAL((sec1 < hour1), true)
+			
+			.CHECK_EQUAL((min1 <= sec60), true)
+			.CHECK_EQUAL((hour1 <= min60), true)
+			.CHECK_EQUAL((min1 >= sec60), true)
+			.CHECK_EQUAL((hour1 >= min60), true)
+			
+			.CHECK_EQUAL((hour1 >= min1), true)
+			.CHECK_EQUAL((min1 >= sec1), true)
+			.CHECK_EQUAL((hour1 >= sec1), true)
+			.CHECK_EQUAL((min1 <= hour1), true)
+			.CHECK_EQUAL((sec1 <= min1), true)
+			.CHECK_EQUAL((sec1 <= hour1), true)
+			
+			//SEC, MIN, HOUR test -Arithmetic operators
+			//note: operator+= and operator-= change the valuse
+			.setname("SEC, MIN, HOUR test-Arithmetic operators")
+			.CHECK_OUTPUT(sec1 + min1,"61[sec]")
+			.CHECK_OUTPUT(min1 + hour1,"61[min]")
+			.CHECK_OUTPUT(min1 + sec1 - sec1,"1[min]")
+			.CHECK_OUTPUT(hour1 + sec1 - sec1,"1[hour]")
+			
+			.CHECK_OUTPUT(sec1 - min1,"-59[sec]")//negetive number.
+			
+			.CHECK_OUTPUT(sec61 - sec1,"60[sec]")
+			.CHECK_OUTPUT(min61 - min1,"60[min]")
+			
+			.CHECK_OUTPUT(+sec1,"1[sec]")
+			.CHECK_OUTPUT(+min1,"1[min]")
+			.CHECK_OUTPUT(+hour1,"1[hour]")
+			.CHECK_OUTPUT(-sec1,"-1[sec]")
+			.CHECK_OUTPUT(-min1,"-1[min]")
+			.CHECK_OUTPUT(-hour1,"-1[hour]")
+			
+			.CHECK_OUTPUT((sec61 -= sec1),"60[sec]")//cm101 = 100 cm
+			.CHECK_OUTPUT((min61 -= min1),"60[min]")//m1001 = 1000 m
+			.CHECK_OUTPUT((min1 += sec60),"2[min]")
+			.CHECK_OUTPUT((hour1 += min60),"2[hour]")
+			
+			//SEC, MIN, HOUR test - prefix/postfix operators
+			.setname("SEC, MIN, HOUR test-prefix/postfix operators")
+			.CHECK_OUTPUT((sec1++),"2[sec]")
+			.CHECK_OUTPUT((++sec1),"3[sec]")
+			.CHECK_OUTPUT((sec1--),"2[sec]")
+			.CHECK_OUTPUT((--sec1),"1[sec]")
+			
+			.CHECK_OUTPUT((min1++),"3[min]")
+			.CHECK_OUTPUT((++min1),"4[min]")
+			.CHECK_OUTPUT((min1--),"3[min]")
+			.CHECK_OUTPUT((--min1),"2[min]")
+			
+			.CHECK_OUTPUT((hour1++),"3[hour]")
+			.CHECK_OUTPUT((++hour1),"4[hour]")
+			.CHECK_OUTPUT((hour1--),"3[hour]")
+			.CHECK_OUTPUT((--hour1),"2[hour]")
+			
+			//G, KG, TON test - operators >> and <<
+			.setname("G, KG, TON test - operators >> and <<")
+			
+			.CHECK_OUTPUT(  g1 << " " << kg1 << " " << ton1  ,"1[g] 1[kg] 1[ton]" )
+			
+			.CHECK_OK(istringstream("1[g]") >> t)
+			.CHECK_OUTPUT(t,"1[g]")
+			.CHECK_OK(istringstream("1[kg]") >> t)
+			.CHECK_OUTPUT(t,"1[kg]")
+			.CHECK_OK(istringstream("1[ton]") >> t)
+			.CHECK_OUTPUT(t,"1[ton]")
+			
+			
+			//G, KG, TON test - operator compare
+			.setname("G, KG, TON test-operator compare")
+			.CHECK_EQUAL((kg1 == g1000), true)
+			.CHECK_EQUAL((ton1 == kg1000), true)
+			.CHECK_EQUAL((kg1 != g1001), true)
+			.CHECK_EQUAL((ton1 != kg1001), true)
+			
+			.CHECK_EQUAL((ton1 > kg1), true)
+			.CHECK_EQUAL((kg1 > g1), true)
+			.CHECK_EQUAL((ton1 > g1), true)
+			.CHECK_EQUAL((kg1 < ton1), true)
+			.CHECK_EQUAL((g1 < kg1), true)
+			.CHECK_EQUAL((g1 < ton1), true)
+			
+			.CHECK_EQUAL((ton1 <= kg1000), true)
+			.CHECK_EQUAL((kg1 <= g1000), true)
+			.CHECK_EQUAL((ton1 >= kg1000), true)
+			.CHECK_EQUAL((kg1 >= g1000), true)
+			
+			.CHECK_EQUAL((ton1 >= kg1), true)
+			.CHECK_EQUAL((kg1 >= g1), true)
+			.CHECK_EQUAL((ton1 >= g1), true)
+			.CHECK_EQUAL((kg1 <= ton1), true)
+			.CHECK_EQUAL((g1 <= kg1), true)
+			.CHECK_EQUAL((g1 <= ton1), true)
+			
+			
+			
+			
+			//G, KG, TON test -Arithmetic operators
+			//note: operator+= and operator-= change the valuse
+			.setname("G, KG, TON test-Arithmetic operators")
+			.CHECK_OUTPUT(g1 + kg1,"1001[g]")
+			.CHECK_OUTPUT(kg1 + g1,"1.001[kg]")
+			.CHECK_OUTPUT(kg1 + ton1,"1001[kg]")
+			.CHECK_OUTPUT(ton1 + kg1,"1.001[ton]")
+			
+			.CHECK_OUTPUT(kg1 - g1,"0.999[kg]")
+			.CHECK_OUTPUT(ton1 - kg1,"0.999[ton]")
+			.CHECK_OUTPUT(kg1 - ton1,"-999[kg]")//negetive number.
+			
+			.CHECK_OUTPUT(g1001 - kg1,"1[g]")
+			.CHECK_OUTPUT(kg1001 - ton1,"1[kg]")
+			
+			.CHECK_OUTPUT(+g1,"1[g]")
+			.CHECK_OUTPUT(+kg1,"1[kg]")
+			.CHECK_OUTPUT(+ton1,"1[ton]")
+			.CHECK_OUTPUT(-g1,"-1[g]")
+			.CHECK_OUTPUT(-kg1,"-1[kg]")
+			.CHECK_OUTPUT(-ton1,"-1[ton]")
+
+			
+			.CHECK_OUTPUT((g1001 -= g1),"1000[g]")//g1001 = 1000 g
+			.CHECK_OUTPUT((kg1001 -= kg1),"1000[kg]")
+			.CHECK_OUTPUT((kg1 += g1001),"2[kg]")
+			.CHECK_OUTPUT((ton1 += kg1001),"2[ton]")
+			
+			//G, KG, TON test - prefix/postfix operators
+			.setname("G, KG, TON test-prefix/postfix operators")
+			.CHECK_OUTPUT((g1++),"2[g]")
+			.CHECK_OUTPUT((++g1),"3[g]")
+			.CHECK_OUTPUT((g1--),"2[g]")
+			.CHECK_OUTPUT((--g1),"1[g]")
+			
+			.CHECK_OUTPUT((kg1++),"3[kg]")
+			.CHECK_OUTPUT((++kg1),"4[kg]")
+			.CHECK_OUTPUT((kg1--),"3[kg]")
+			.CHECK_OUTPUT((--kg1),"2[kg]")
+			
+			.CHECK_OUTPUT((ton1++),"3[ton]")
+			.CHECK_OUTPUT((++ton1),"4[ton]")
+			.CHECK_OUTPUT((ton1--),"3[ton]")
+			.CHECK_OUTPUT((--ton1),"2[ton]")
+									
 			//Input/output Check
 			.setname("Input/output Check")
 			.CHECK_OK(istringstream("1000[m]") >> a)
@@ -307,12 +493,12 @@ int main() {
 			.CHECK_THROWS(a - b)
 			.CHECK_THROWS((a -= b))
 			.CHECK_THROWS((a += b))
-			/*.CHECK_THROWS((a != b)) expression not build yet
+			.CHECK_THROWS((a != b)) 
 			.CHECK_THROWS((a == b))
 			.CHECK_THROWS((a > b))
 			.CHECK_THROWS((a >= b))
 			.CHECK_THROWS((a < b))
-			.CHECK_THROWS((a <= b))*/
+			.CHECK_THROWS((a <= b))
 			
 			.print(cout, /*show_grade=*/false);
 		grade = testcase.grade();
