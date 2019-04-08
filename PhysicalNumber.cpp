@@ -152,10 +152,10 @@ static ariel::Unit get_Enum(std::string name) {
 }
 std::istream & ariel::operator>>(std::istream & is, ariel::PhysicalNumber & physical)
 {
-	long double n_value = 0;
+	/*long double n_value = 0;
 	std::string n_unit;
 	is >> n_value >> n_unit;
 	physical.value = n_value;
-	physical.unit = get_Enum(n_unit);
+	physical.unit = get_Enum(n_unit);*/
 	return is;
 }
