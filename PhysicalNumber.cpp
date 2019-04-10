@@ -56,25 +56,21 @@ const ariel::PhysicalNumber & ariel::operator-=(ariel::PhysicalNumber & a, const
 	}
 	else throw FormatException(a.unit, b.unit);
 }
-ariel::PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical)
+ariel::PhysicalNumber ariel::operator--(const ariel::PhysicalNumber & physical)
 {
-	--physical.value;
-	return physical;
+	return PhysicalNumber(physical.value - 1,physical.unit);
 }
-ariel::PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical, int flag)
+ariel::PhysicalNumber ariel::operator--(const ariel::PhysicalNumber & physical, int flag)
 {
-	physical.value--;
-	return physical;
+	return PhysicalNumber(physical.value - 1, physical.unit);
 }
-ariel::PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical)
+ariel::PhysicalNumber ariel::operator++(const ariel::PhysicalNumber & physical)
 {
-	++physical.value;
-	return physical;
+	return PhysicalNumber(physical.value + 1, physical.unit);
 }
-ariel::PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical, int flag)
+ariel::PhysicalNumber ariel::operator++(const ariel::PhysicalNumber & physical, int flag)
 {
-	physical.value++;
-	return physical;
+	return PhysicalNumber(physical.value + 1, physical.unit);
 }
 const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
 {
