@@ -157,6 +157,7 @@ std::istream & ariel::operator>>(std::istream & is, ariel::PhysicalNumber & phys
 		is.clear(); // clear error so seekg will work
 		is.seekg(startPosition); // rewind
 		is.clear(errorState); // set back the error flag
+		throw std::string( "an Invalid Format was given" );
 	}
 	return is;
 }
