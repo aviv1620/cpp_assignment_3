@@ -18,6 +18,11 @@ ariel::PhysicalNumber::PhysicalNumber(long double value, ariel::Unit unit) {// P
 	this->value = value;
 	this->unit = unit;
 }
+static void checkFormat(ariel::Unit unitA,ariel::Unit unitB) {
+	if (unitA / 3 == unitB / 3)
+		return;
+	else throw FormatException(unitA, unitB);
+}
 //ADD and SUB
 
 const ariel::PhysicalNumber ariel::operator+(const ariel::PhysicalNumber & physical)
@@ -27,21 +32,18 @@ const ariel::PhysicalNumber ariel::operator+(const ariel::PhysicalNumber & physi
 
 const ariel::PhysicalNumber & ariel::operator+=(ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
 {
-	if ((a.unit / 3 == b.unit / 3)) {
+		checkFormat(a.unit, b.unit);
 		long double num = (a.value * ariel::Enumber[a.unit] + b.value * ariel::Enumber[b.unit]) / ariel::Enumber[a.unit];
 		a.value = num;
 		return a;
-	}
-	else throw FormatException(a.unit, b.unit);
 }
 
 const ariel::PhysicalNumber ariel::operator+(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
 {
-	if ((a.unit / 3 == b.unit / 3)) {
-		long double num = (a.value * Enumber[a.unit] + b.value * Enumber[b.unit]) / Enumber[a.unit];
-		return PhysicalNumber(num, a.unit);
-	}
-	else throw FormatException(a.unit, b.unit);
+	checkFormat(a.unit, b.unit);
+	std::cout << a.value << "" << Ename[a.unit] << "," << b.value << "" << Ename[b.unit] << std::endl;
+	long double num = (a.value * Enumber[a.unit] + b.value * Enumber[b.unit]) / Enumber[a.unit];
+	return PhysicalNumber(num, a.unit);
 }
 const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & physical)
 {
@@ -49,12 +51,10 @@ const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & physi
 }
 const ariel::PhysicalNumber & ariel::operator-=(ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
 {
-	if ((a.unit / 3 == b.unit / 3)) {
-		long double num = (a.value * ariel::Enumber[a.unit] - b.value * ariel::Enumber[b.unit])/ariel::Enumber[a.unit];
-		a.value = num;
-		return a;
-	}
-	else throw FormatException(a.unit, b.unit);
+	checkFormat(a.unit, b.unit);
+	long double num = (a.value * ariel::Enumber[a.unit] - b.value * ariel::Enumber[b.unit])/ariel::Enumber[a.unit];
+	a.value = num;
+	return a;
 }
 ariel::PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical)
 {
@@ -80,50 +80,35 @@ ariel::PhysicalNumber ariel::operator++(ariel::PhysicalNumber & physical, int fl
 }
 const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
 {
-	if ((a.unit / 3 == b.unit / 3)) {
-		long double num = (a.value * Enumber[a.unit] - b.value * Enumber[b.unit]) / Enumber[a.unit];
-		return PhysicalNumber(num, a.unit);
-	}
-	else throw FormatException(a.unit,b.unit);
+	checkFormat(a.unit, b.unit);
+	long double num = (a.value * Enumber[a.unit] - b.value * Enumber[b.unit]) / Enumber[a.unit];
+	return PhysicalNumber(num, a.unit);
 }
 
 //Boolean operators
 bool ariel::operator==(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {
-	if ((a.unit / 3 == b.unit / 3)) {
+	checkFormat(a.unit, b.unit);
 	return (a.value * Enumber[a.unit]) == (b.value * Enumber[b.unit]);
-	}
-	else throw FormatException(a.unit,b.unit);
 }
 bool ariel::operator!=(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {
-	if ((a.unit / 3 == b.unit / 3)) {
-		return !(a==b);
-	}
-	else throw FormatException(a.unit, b.unit);
+	checkFormat(a.unit, b.unit);
+	return !(a==b);
 }
 bool ariel::operator<(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {
-	if ((a.unit / 3 == b.unit / 3)) {
-		return (a.value * Enumber[a.unit]) < (b.value * Enumber[b.unit]);
-	}
-	else throw FormatException(a.unit, b.unit);
+	checkFormat(a.unit, b.unit);
+	return (a.value * Enumber[a.unit]) < (b.value * Enumber[b.unit]);
 }
 bool ariel::operator<=(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {
-
-	if ((a.unit / 3 == b.unit / 3)) {
-		return (a < b) || (a == b);
-	}
-	else throw FormatException(a.unit, b.unit);
+	checkFormat(a.unit, b.unit);
+	return (a < b) || (a == b);
 }
 bool ariel::operator>(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {
-	if ((a.unit / 3 == b.unit / 3)) {
-		return (a.value * Enumber[a.unit]) > (b.value * Enumber[b.unit]);
-	}
-	else throw FormatException(a.unit, b.unit);
+	checkFormat(a.unit, b.unit);
+	return (a.value * Enumber[a.unit]) > (b.value * Enumber[b.unit]);
 }
 bool ariel::operator>=(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {
-	if ((a.unit / 3 == b.unit / 3)) {
-		return (a > b) || (a == b);
-	}
-	else throw FormatException(a.unit, b.unit);
+	checkFormat(a.unit, b.unit);
+	return (a > b) || (a == b);
 }
 //STREAM
 std::ostream & ariel::operator<<(std::ostream & os, const ariel::PhysicalNumber & physical)
