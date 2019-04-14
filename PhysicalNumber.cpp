@@ -1,20 +1,20 @@
 #include <iostream>
 #include "PhysicalNumber.h"
 
-class FormatException : public std::exception {
+class FormatException : public std::exception {//custom exception for PhysicalNumber
 
 	const char* s = 0;
 	std::string str;
 public:
-	FormatException(const ariel::Unit& unit1,const ariel::Unit& unit2) {
+	FormatException(const ariel::Unit& unit1,const ariel::Unit& unit2) {//constructor for invalid format change
 		str = "Units don't match - " + ariel::Ename[unit2] + " cannot converted to " + ariel::Ename[unit1];
 		s = str.c_str();
 	}
-	virtual const char* what() const throw(){
+	virtual const char* what() const throw(){//get cause of exception
 		return s;
 	}
 };
-ariel::PhysicalNumber::PhysicalNumber(long double value, ariel::Unit unit) {
+ariel::PhysicalNumber::PhysicalNumber(long double value, ariel::Unit unit) {// PhysicalNumber construtor
 	this->value = value;
 	this->unit = unit;
 }
@@ -63,8 +63,9 @@ ariel::PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical)
 }
 ariel::PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical, int flag)
 {
-	--physical.value;
-	return physical;
+	PhysicalNumber copy = physical;
+	physical.value--;
+	return copy;
 }
 ariel::PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical)
 {
@@ -73,8 +74,9 @@ ariel::PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical)
 }
 ariel::PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical, int flag)
 {
-	++physical.value;
-	return physical;
+	PhysicalNumber copy = physical;
+	physical.value++;
+	return copy;
 }
 const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
 {
@@ -157,7 +159,6 @@ std::istream & ariel::operator>>(std::istream & is, ariel::PhysicalNumber & phys
 		is.clear(); // clear error so seekg will work
 		is.seekg(startPosition); // rewind
 		is.clear(errorState); // set back the error flag
-		throw std::string( "an Invalid Format was given" );
 	}
 	return is;
 }
