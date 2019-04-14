@@ -22,9 +22,9 @@ namespace ariel {
 		friend const PhysicalNumber operator- (const PhysicalNumber& physical);//-physical
 		friend const PhysicalNumber& operator-=(PhysicalNumber& a, const PhysicalNumber& b);//a-=b
 		friend  PhysicalNumber& operator--(PhysicalNumber& physical);//prefix
-		friend  PhysicalNumber& operator--(PhysicalNumber& physical, int flag);//postfix
+		friend  PhysicalNumber operator--(PhysicalNumber& physical, int flag);//postfix
 		friend  PhysicalNumber& operator++(PhysicalNumber& physical);//prefix
-		friend  PhysicalNumber& operator++(PhysicalNumber& physical, int flag);//postfix
+		friend  PhysicalNumber operator++(PhysicalNumber& physical, int flag);//postfix
 		friend const PhysicalNumber operator+ (const PhysicalNumber& a, const PhysicalNumber& b);//a+b
 		friend const PhysicalNumber operator-(const PhysicalNumber& a, const PhysicalNumber& b);//a-b
 
