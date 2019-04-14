@@ -41,7 +41,6 @@ const ariel::PhysicalNumber & ariel::operator+=(ariel::PhysicalNumber & a, const
 const ariel::PhysicalNumber ariel::operator+(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b)
 {
 	checkFormat(a.unit, b.unit);
-	std::cout << a.value << "" << Ename[a.unit] << "," << b.value << "" << Ename[b.unit] << std::endl;
 	long double num = (a.value * Enumber[a.unit] + b.value * Enumber[b.unit]) / Enumber[a.unit];
 	return PhysicalNumber(num, a.unit);
 }
@@ -88,7 +87,8 @@ const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & a, co
 //Boolean operators
 bool ariel::operator==(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {
 	checkFormat(a.unit, b.unit);
-	return (a.value * Enumber[a.unit]) == (b.value * Enumber[b.unit]);
+	return std::labs((a.value*Enumber[a.unit] - b.value*Enumber[b.unit])) < __DBL_EPSILON__;
+	//return (a.value * Enumber[a.unit]) == (b.value * Enumber[b.unit]);
 }
 bool ariel::operator!=(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {
 	checkFormat(a.unit, b.unit);
