@@ -89,8 +89,8 @@ const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & a, co
 //Boolean operators
 bool ariel::operator==(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {//equal
 	checkFormat(a.unit, b.unit);
-	std::cout << std::abs((a.value * Enumber[a.unit]) - (b.value * Enumber[b.unit])) << " <= "<< std::numeric_limits<long double>::epsilon() * std::abs((a.value * Enumber[a.unit]) + (b.value * Enumber[b.unit])) * 200 <<std::endl;
-	return std::abs((a.value * Enumber[a.unit]) - (b.value * Enumber[b.unit])) <= std::numeric_limits<long double>::epsilon() * std::abs((a.value * Enumber[a.unit]) + (b.value * Enumber[b.unit])) * 200 || std::abs((a.value * Enumber[a.unit]) + (b.value * Enumber[b.unit])) < std::numeric_limits<long double>::min();// long double is not fully accurate.
+	std::cout << std::abs((a.value * Enumber[a.unit]) - (b.value * Enumber[b.unit])) << " <= "<< std::numeric_limits<long double>::epsilon() * std::abs((a.value * Enumber[a.unit]) + (b.value * Enumber[b.unit])) * 275 <<std::endl;
+	return std::abs((a.value * Enumber[a.unit]) - (b.value * Enumber[b.unit])) <= std::numeric_limits<long double>::epsilon() * std::abs((a.value * Enumber[a.unit]) + (b.value * Enumber[b.unit])) * 275 || std::abs((a.value * Enumber[a.unit]) + (b.value * Enumber[b.unit])) < std::numeric_limits<long double>::min();// long double is not fully accurate.
 }
 bool ariel::operator!=(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {//not equal
 	checkFormat(a.unit, b.unit);
