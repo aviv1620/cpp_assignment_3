@@ -61,7 +61,7 @@ ariel::PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical)
 	physical.value--;
 	return physical;
 }
-ariel::PhysicalNumber & ariel::operator--(ariel::PhysicalNumber & physical, int flag)
+ariel::PhysicalNumber ariel::operator--(ariel::PhysicalNumber & physical, int flag)
 {
 	PhysicalNumber copy = physical;
 	physical.value--;
@@ -72,7 +72,7 @@ ariel::PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical)
 	physical.value++;
 	return physical;
 }
-ariel::PhysicalNumber & ariel::operator++(ariel::PhysicalNumber & physical, int flag)
+ariel::PhysicalNumber ariel::operator++(ariel::PhysicalNumber & physical, int flag)
 {
 	PhysicalNumber copy = physical;
 	physical.value++;
