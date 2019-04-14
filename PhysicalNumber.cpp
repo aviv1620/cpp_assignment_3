@@ -2,6 +2,7 @@
 #include <cmath>
 #include <limits>
 #include "PhysicalNumber.h"
+#include <iomanip>
 
 class FormatException : public std::exception {//custom exception for PhysicalNumber
 
@@ -20,7 +21,7 @@ ariel::PhysicalNumber::PhysicalNumber(long double value, ariel::Unit unit) {// P
 	this->value = value;
 	this->unit = unit;
 }
-static void checkFormat(ariel::Unit unitA,ariel::Unit unitB) {//function to check if format is valid 
+static void checkFormat(const ariel::Unit& unitA,const ariel::Unit& unitB) {//function to check if format is valid 
 	if (unitA / 3 == unitB / 3)
 		return;
 	else throw FormatException(unitA, unitB);
@@ -89,7 +90,10 @@ const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & a, co
 //Boolean operators
 bool ariel::operator==(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {//equal
 	checkFormat(a.unit, b.unit);
-	return std::abs((a.value * Enumber[a.unit]) - (b.value * Enumber[b.unit])) <= std::numeric_limits<long double>::epsilon() * std::abs((a.value * Enumber[a.unit]) + (b.value * Enumber[b.unit])) * 351 || std::abs((a.value * Enumber[a.unit]) + (b.value * Enumber[b.unit])) < std::numeric_limits<long double>::min();// long double is not fully accurate.
+	long double y = b.value * Enumber[b.unit];
+	long double x = a.value * Enumber[a.unit];
+	std::cout << std::abs(x - y) <<" < "<< std::numeric_limits<long double>::epsilon() * std::abs(x + y) * 351 << " || " << std::abs(x - y) << " < " << std::numeric_limits<long double>::min() << std::endl;
+	return std::abs(x - y) < std::numeric_limits<long double>::epsilon() * std::abs(x + y) * 351 || (std::abs(x - y) < std::numeric_limits<long double>::min());// long double is not fully accurate.
 }
 bool ariel::operator!=(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {//not equal
 	checkFormat(a.unit, b.unit);
