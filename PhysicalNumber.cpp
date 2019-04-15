@@ -92,8 +92,8 @@ const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & a, co
 //Boolean operators
 bool ariel::operator==(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {//equal
 	checkFormat(a.unit, b.unit);
-	long double y = b.amount * Enumber[b.unit];
-	long double x = a.amount * Enumber[a.unit];
+	double y = b.amount * Enumber[b.unit];
+	double x = a.amount * Enumber[a.unit];
 	return x == y;
 	//std::cout << std::abs(x - y) <<" < "<< std::numeric_limits<long double>::epsilon() * std::abs(x + y) * 351 << " || " << std::abs(x - y) << " < " << std::numeric_limits<long double>::min() << std::endl;
 	//return std::abs(x - y) < std::numeric_limits<long double>::epsilon() * std::abs(x + y) * 351 || (std::abs(x - y) < std::numeric_limits<long double>::min());// long double is not fully accurate.
