@@ -1,17 +1,19 @@
 #pragma once
 #include <iostream>
+
 #include "Unit.h"
+
 namespace ariel {
 	class PhysicalNumber {
 	private:
-		long double value;
+		long double amount;
 		Unit unit;
 		
 
 	public:
-		PhysicalNumber(long double value, Unit unit);
-		int get_number() {
-			return value;
+		PhysicalNumber(long double amount, Unit unit);
+		int get_amount() {
+			return amount;
 		}
 		Unit get_unit() {
 			return unit;
@@ -24,7 +26,7 @@ namespace ariel {
 		friend  PhysicalNumber& operator--(PhysicalNumber& physical);//prefix
 		friend  PhysicalNumber operator--(PhysicalNumber& physical, int flag);//postfix
 		friend  PhysicalNumber& operator++(PhysicalNumber& physical);//prefix
-		friend  PhysicalNumber operator++(PhysicalNumber& physical, int flag);//postfix
+		friend  PhysicalNumber operator++(PhysicalNumber& physical,int flag);//postfix
 		friend const PhysicalNumber operator+ (const PhysicalNumber& a, const PhysicalNumber& b);//a+b
 		friend const PhysicalNumber operator-(const PhysicalNumber& a, const PhysicalNumber& b);//a-b
 
