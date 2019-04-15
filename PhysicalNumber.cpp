@@ -91,12 +91,10 @@ const ariel::PhysicalNumber ariel::operator-(const ariel::PhysicalNumber & a, co
 
 //Boolean operators
 bool ariel::operator==(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {//equal
-	checkFormat(a.unit, b.unit);
-	double y = b.amount * Enumber[b.unit];
-	double x = a.amount * Enumber[a.unit];
+	checkFormat(a.unit, b.unit);//check units
+	double y = b.amount * Enumber[b.unit];//round number from long double to double
+	double x = a.amount * Enumber[a.unit];//round number from long double to double
 	return x == y;
-	//std::cout << std::abs(x - y) <<" < "<< std::numeric_limits<long double>::epsilon() * std::abs(x + y) * 351 << " || " << std::abs(x - y) << " < " << std::numeric_limits<long double>::min() << std::endl;
-	//return std::abs(x - y) < std::numeric_limits<long double>::epsilon() * std::abs(x + y) * 351 || (std::abs(x - y) < std::numeric_limits<long double>::min());// long double is not fully accurate.
 }
 bool ariel::operator!=(const ariel::PhysicalNumber & a, const ariel::PhysicalNumber & b) {//not equal
 	checkFormat(a.unit, b.unit);
@@ -147,7 +145,7 @@ std::istream & ariel::operator>>(std::istream & is, ariel::PhysicalNumber & phys
 	}
 	else {//failed to find unit
 		is.setstate(std::ios::failbit);
-		std::cout << "an Invalid Format was given" << std::endl;
+		std::cout << "an Invalid Format was given..." << std::endl;
 		auto errorState = is.rdstate(); // remember error state
 		is.clear(); // clear error so seekg will work
 		is.seekg(startPosition); // rewind
